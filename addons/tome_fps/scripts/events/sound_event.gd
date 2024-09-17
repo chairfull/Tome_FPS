@@ -1,4 +1,4 @@
-class_name Sound3DEvent
+class_name SoundEvent
 extends Event
 ## 3D sound event.
 

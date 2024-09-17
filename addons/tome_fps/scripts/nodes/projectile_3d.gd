@@ -28,8 +28,9 @@ func _physics_process(delta: float) -> void:
 		var hit_norm := get_collision_normal()
 		if position.distance_to(hit_point) <= position.distance_to(next_point):
 			if collider is Damagable3D:
-				Event.DAMAGE_3D.emit({
+				Event.DAMAGE.emit({
 					source=self,
+					target=collider,
 					type=damage_type,
 					amount=damage_amount,
 					position=hit_point,

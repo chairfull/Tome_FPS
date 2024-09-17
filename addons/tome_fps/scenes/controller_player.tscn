@@ -1,10 +1,17 @@
-[gd_scene load_steps=3 format=3 uid="uid://cosrnci45upeo"]
+[gd_scene load_steps=5 format=3 uid="uid://cosrnci45upeo"]
 
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/controller_player.gd" id="1_njtdf"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_kndj3"]
 radius = 0.1
 height = 0.2
+
+[sub_resource type="Gradient" id="Gradient_n0s6l"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ae56v"]
+gradient = SubResource("Gradient_n0s6l")
 
 [node name="ControllerPlayer" type="Node3D"]
 script = ExtResource("1_njtdf")
@@ -70,3 +77,9 @@ layout_mode = 2
 text = "[E] Use Item
 [F] Select"
 vertical_alignment = 1
+
+[node name="DamageIndicator" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 0, 0, 1)
+scale = Vector2(0.40625, 1.1875)
+texture = SubResource("GradientTexture2D_ae56v")

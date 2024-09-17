@@ -36,7 +36,7 @@ func _entered(area: Area3D):
 	print(area)
 	if area is SoundListener3D and not area in _ignore:
 		_listeners.append(area)
-		Event.SOUND_3D_STARTED.emit(get_event_state(), area.sound_started)
+		Event.SOUND_STARTED.emit(get_event_state(), area.sound_started)
 
 func _exited(area: Area3D):
 	print(area)
@@ -45,7 +45,7 @@ func _exited(area: Area3D):
 		_ended(area)
 
 func _ended(area: SoundListener3D):
-	Event.SOUND_3D_ENDED.emit(get_event_state(), area.sound_ended)
+	Event.SOUND_ENDED.emit(get_event_state(), area.sound_ended)
 
 func get_event_state() -> Dictionary:
 	return { source=self, position=global_position }

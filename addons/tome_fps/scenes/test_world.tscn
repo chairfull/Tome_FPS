@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://cs4drhmc1bql5"]
+[gd_scene load_steps=40 format=3 uid="uid://cs4drhmc1bql5"]
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/tome_fps/character_node.tscn" id="1_5insn"]
 [ext_resource type="Resource" uid="uid://cuwhr62gtv4p8" path="res://state/characters/player.tres" id="2_msftv"]
@@ -16,9 +16,16 @@
 [ext_resource type="PackedScene" uid="uid://c8yspm0nu1e2q" path="res://state/door_double.tscn" id="14_2ak6a"]
 [ext_resource type="PackedScene" uid="uid://cu517ggsr4cur" path="res://addons/tome_fps/scenes/climbable.tscn" id="15_8jtrk"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/zone_area_3d.gd" id="16_0ivb4"]
+[ext_resource type="PackedScene" uid="uid://cdc75ys1bi1n4" path="res://addons/tome_fps/scenes/objects/turret.tscn" id="17_fojs6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_tufgh"]
+
+[sub_resource type="Sky" id="Sky_06dg8"]
+sky_material = SubResource("ProceduralSkyMaterial_tufgh")
 
 [sub_resource type="Environment" id="Environment_20rw3"]
 background_mode = 2
+sky = SubResource("Sky_06dg8")
 tonemap_mode = 1
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_p5nlx"]
@@ -271,7 +278,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.29203, 0, -7.97421)
 
 [node name="Climbable" parent="." instance=ExtResource("15_8jtrk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.403708, 0.01123, -10.8507)
+collision_layer = 1
 height = 2.055
+disabled = false
 assignable_to_node = true
 assignable_to_point = true
 label = "Interact"
@@ -303,3 +312,6 @@ shape = SubResource("CylinderShape3D_i0i5n")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.64733, 0.567804, 11.4097)
 omni_range = 2.0
+
+[node name="Turret" parent="." instance=ExtResource("17_fojs6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.94833, 0, 6.96892)

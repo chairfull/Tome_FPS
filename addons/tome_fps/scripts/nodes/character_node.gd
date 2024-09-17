@@ -1,6 +1,8 @@
 class_name CharacterNode
 extends CharacterBody3D
 
+signal damaged(event: DamageEvent)
+signal healed(event: HealingEvent)
 signal restrainer_entered(restrainer: RestrainerNode)
 signal restrainer_exited(restrainer: RestrainerNode)
 signal interactive_focused(interactive: InteractiveNode)
@@ -92,6 +94,9 @@ func _ready() -> void:
 	head.rotation.y = -rotation.y
 	rotation.y = 0.0
 	set_player(_player)
+	
+	head_health.damaged.connect(damaged.emit)
+	body_health.damaged.connect(damaged.emit)
 
 func get_character() -> Character:
 	return character if character else Character.NONE
@@ -441,8 +446,6 @@ func _update_interactive_detection():
 		return
 	
 	var info := _detect_interactive()
-	if is_player():
-		print(info)
 	if info.interactive != _interactive:
 		if _interactive:
 			_interactive._focus_exited()

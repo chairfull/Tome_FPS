@@ -21,11 +21,11 @@ resource_name = "reload"
 [sub_resource type="Animation" id="Animation_f3wcn"]
 resource_name = "cooldown"
 
-[sub_resource type="Animation" id="Animation_plhyr"]
-resource_name = "fire"
-
 [sub_resource type="Animation" id="Animation_mak2l"]
 resource_name = "idle"
+
+[sub_resource type="Animation" id="Animation_plhyr"]
+resource_name = "fire"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hxvc4"]
 _data = {

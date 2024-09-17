@@ -1,10 +1,11 @@
 class_name Event
 extends Resource
 
-static var DAMAGE_3D := Damage3DEvent.new()
+static var DAMAGE := DamageEvent.new()
+static var HEALING := HealingEvent.new()
 
-static var SOUND_3D_STARTED := Sound3DEvent.new()
-static var SOUND_3D_ENDED := Sound3DEvent.new()
+static var SOUND_STARTED := SoundEvent.new()
+static var SOUND_ENDED := SoundEvent.new()
 
 func emit(props: Dictionary, sig: Variant = null):
 	for prop in props:

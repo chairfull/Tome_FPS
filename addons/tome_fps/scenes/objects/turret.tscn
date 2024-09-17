@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://cdc75ys1bi1n4"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/turret_3d.gd" id="1_pgd3w"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/field_of_view_3d.gd" id="2_onlco"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_orq3i"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cg76x"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_56wxo"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.0
+radial_segments = 16
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_fyblj"]
+size = Vector3(1, 0.5, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ykicb"]
+radius = 8.0
+
+[node name="Turret" type="StaticBody3D"]
+script = ExtResource("1_pgd3w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_orq3i")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Head"]
+mesh = SubResource("SphereMesh_cg76x")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Head"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.5)
+mesh = SubResource("CylinderMesh_56wxo")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+mesh = SubResource("BoxMesh_fyblj")
+
+[node name="FOV" type="Area3D" parent="." node_paths=PackedStringArray("ray", "head")]
+collision_layer = 0
+collision_mask = 128
+monitorable = false
+script = ExtResource("2_onlco")
+ray = NodePath("../FOVRay")
+head = NodePath("../Head")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FOV"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_ykicb")
+
+[node name="FOVRay" type="RayCast3D" parent="."]
+collision_mask = 128

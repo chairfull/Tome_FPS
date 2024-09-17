@@ -22,6 +22,8 @@ func _ready() -> void:
 	
 	character_node.camera.make_current()
 	
+	character_node.damaged.connect(_damaged)
+	
 	character_node.interactive_selected.connect(func(inter):
 			cursor.visible = true)
 	character_node.interactive_deselected.connect(func(inter):
@@ -85,6 +87,20 @@ func _ready() -> void:
 				else:
 					%label.text = "[F] %s" % [label_select]
 			)
+
+func _damaged(e: DamageEvent):
+	var rot := PI - character_node.direction + character_node.get_direction_to_point(e.source.global_position)
+	%DamageIndicator.visible = true
+	%DamageIndicator.rotation = rot + PI * .5
+	%DamageIndicator.position = get_viewport().size * .5 + Vector2(sin(-rot), cos(-rot)) * 64.0
+	var tw := get_tree().create_tween()
+	tw.tween_property(%DamageIndicator, "modulate:a", 1.0, 0.125)
+	await tw.finished
+	await get_tree().create_timer(.5).timeout
+	var tw2 := get_tree().create_tween()
+	tw2.tween_property(%DamageIndicator, "modulate:a", 0.0, 0.25)
+	await tw2.finished
+	%DamageIndicator.visible = false
 
 func _physics_process(delta: float) -> void:
 	var ld := character_node.light_detector

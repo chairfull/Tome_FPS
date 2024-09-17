@@ -6,16 +6,18 @@ signal visible_changed()
 signal spotted(ch: CharacterNode)
 signal unspotted(ch: CharacterNode)
 
+@export var ray: RayCast3D
+@export var head: Node3D
 var _in_area: Array[CharacterNode]
 var _visible: Array[CharacterNode]
 var _index := 0
 var _last_positions: Dictionary[CharacterNode, Vector3]
 var _last_direction: Dictionary[CharacterNode, Vector3]
-@onready var ray: RayCast3D = $"../FOVRay"
 
 func _ready() -> void:
 	set_physics_process(false)
-	ray.add_exception(owner)
+	if owner is CollisionObject3D:
+		ray.add_exception(owner)
 	ray.top_level = true
 	body_entered.connect(_body_entered)
 	body_exited.connect(_body_exited)
@@ -38,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		# Pick a random character.
 		_index = (_index + 1) % len(_in_area)
 		var ch := _in_area[_index]
-		ray.global_position = %Head.global_position
+		ray.global_position = head.global_position
 		ray.target_position = ch.global_position - ray.global_position
 		ray.target_position.y = 0.0
 		ray.target_position = ray.target_position.normalized() * 8.0

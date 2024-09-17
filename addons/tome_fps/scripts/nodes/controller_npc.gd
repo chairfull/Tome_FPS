@@ -78,9 +78,9 @@ func _ready() -> void:
 	character_node.fov.unspotted.connect(func(ch):
 		spotted.erase(ch))
 	
-	character_node.sound_listener.sound_started.connect(func(e: Sound3DEvent):
+	character_node.sound_listener.sound_started.connect(func(e: SoundEvent):
 		sounds.append(e.source))
-	character_node.sound_listener.sound_ended.connect(func(e: Sound3DEvent):
+	character_node.sound_listener.sound_ended.connect(func(e: SoundEvent):
 		sounds.erase(e.source))
 
 func set_phase(p: Phase):
@@ -222,8 +222,8 @@ func _physics_process(delta: float):
 		Phase.CHASING: _phase_chasing(delta)
 		Phase.LOST_CHASE: _phase_lost_chase(delta)
 	
-	var health1 := character_node.head_health.health
-	var health2 := character_node.body_health.health
+	var health1 := character_node.head_health.damagable.health
+	var health2 := character_node.body_health.damagable.health
 	debug_draw.text = "%s\n%.2f\nHead: %s\nBody: %s" % [Phase.keys()[phase], timer, health1, health2]
 	
 	# Draw last positions.

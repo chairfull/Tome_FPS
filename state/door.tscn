@@ -64,14 +64,13 @@ libraries = {
 }
 
 [node name="Pivot" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
-[node name="Stopper" type="Area3D" parent="Pivot" node_paths=PackedStringArray("mesh", "label_node")]
+[node name="Stopper" type="Area3D" parent="Pivot" node_paths=PackedStringArray("label_node", "mesh")]
 collision_layer = 257
 script = ExtResource("2_xosy8")
 selectable = false
-mesh = NodePath("../DoorMesh")
 label_node = NodePath("../Knob")
+mesh = NodePath("../DoorMesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Pivot/Stopper"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.45, 1, 0.025)
