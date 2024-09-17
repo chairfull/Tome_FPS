@@ -1,0 +1,40 @@
+[gd_scene load_steps=5 format=3 uid="uid://bntu7gark35c7"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/item_node.gd" id="1_5xdgg"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2u08i"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 1.5
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xtvxo"]
+top_radius = 0.2
+bottom_radius = 0.2
+height = 0.05
+radial_segments = 16
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ij1x0"]
+height = 1.5
+radius = 0.1
+
+[node name="Sword" type="RigidBody3D" node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_5xdgg")
+assignable_to_node = false
+assignable_to_point = false
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+mesh = SubResource("CylinderMesh_2u08i")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.4, 0)
+mesh = SubResource("CylinderMesh_xtvxo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
+shape = SubResource("CylinderShape3D_ij1x0")

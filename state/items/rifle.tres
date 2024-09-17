@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Gun" load_steps=2 format=3 uid="uid://dvoqxmd7gwwyt"]
+
+[ext_resource type="Script" path="res://gun.gd" id="1_1ehcf"]
+
+[resource]
+script = ExtResource("1_1ehcf")
+aiming_fov = 40.0
+cooldown_time = 0.5
+charge_time = 0.0
+reload_time = 2.0
+clip_size = 10
+name = "Rifle"
+desc = ""
+ui = &"item_gun"

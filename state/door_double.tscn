@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c8yspm0nu1e2q"]
+
+[ext_resource type="PackedScene" uid="uid://blgufwombqkah" path="res://state/door.tscn" id="1_rc7my"]
+
+[node name="Door" type="Node3D"]
+
+[node name="DoorLeft" parent="." instance=ExtResource("1_rc7my")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0, 0)
+
+[node name="DoorRight" parent="." instance=ExtResource("1_rc7my")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 0, 0)

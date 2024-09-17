@@ -1,0 +1,75 @@
+[gd_scene load_steps=6 format=3 uid="uid://def00sbs4ps56"]
+
+[ext_resource type="PackedScene" uid="uid://cs4drhmc1bql5" path="res://addons/tome_fps/scenes/test_world.tscn" id="1_0ehks"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/main_scene.gd" id="1_u23g0"]
+[ext_resource type="Shader" path="res://addons/tome_fps/shaders/outline.gdshader" id="2_ed0qn"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/camera_mimic.gd" id="2_qsaof"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_le4lu"]
+shader = ExtResource("2_ed0qn")
+shader_parameter/blend = 1.0
+
+[node name="main_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u23g0")
+
+[node name="test_world" parent="." instance=ExtResource("1_0ehks")]
+
+[node name="viewport_container" type="SubViewportContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="scene_holder" type="SubViewport" parent="viewport_container"]
+unique_name_in_owner = true
+handle_input_locally = false
+positional_shadow_atlas_size = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 0
+
+[node name="hilight" type="SubViewportContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+material = SubResource("ShaderMaterial_le4lu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="hilight"]
+transparent_bg = true
+handle_input_locally = false
+positional_shadow_atlas_size = 0
+size = Vector2i(1152, 648)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="hilight/SubViewport" node_paths=PackedStringArray("viewport")]
+cull_mask = 262144
+current = true
+far = 100.0
+script = ExtResource("2_qsaof")
+viewport = NodePath("../../../viewport_container/scene_holder")
+
+[node name="ui" type="Control" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1

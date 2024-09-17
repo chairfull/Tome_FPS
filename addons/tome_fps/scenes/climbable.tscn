@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://cu517ggsr4cur"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/climbable.gd" id="1_x21rk"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/restrainer_node.gd" id="2_qn3kr"]
+[ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://textures/orange.png" id="2_tgy8m"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huhqk"]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = ExtResource("2_tgy8m")
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_oq4qy"]
+size = Vector3(1, 2.055, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xaila"]
+size = Vector3(1, 2.055, 0.2)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_6lyop"]
+height = 0.05
+radial_segments = 16
+rings = 1
+
+[node name="Climbable" type="Area3D" node_paths=PackedStringArray("mesh")]
+collision_layer = 257
+monitoring = false
+script = ExtResource("1_x21rk")
+height = 2.45
+disabled = true
+selectable = false
+assignable_to_node = false
+assignable_to_point = false
+label = "Climb"
+label_offset = null
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.225, -0.1)
+material_override = SubResource("StandardMaterial3D_huhqk")
+mesh = SubResource("BoxMesh_oq4qy")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.225, -0.1)
+shape = SubResource("BoxShape3D_xaila")
+
+[node name="Bottom" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.025, 0.5)
+mesh = SubResource("CylinderMesh_6lyop")
+
+[node name="Top" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.45, -0.7)
+mesh = SubResource("CylinderMesh_6lyop")
+
+[node name="RestrainerNode" type="Node3D" parent="." node_paths=PackedStringArray("interactive")]
+script = ExtResource("2_qn3kr")
+interactive = NodePath("..")
+align_position = 0
+align_rotation = 0
+make_parent = false
+type = &"ladder"

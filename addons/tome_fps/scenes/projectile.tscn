@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlilx7h6crb15"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/projectile_3d.gd" id="1_vcp4f"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_q7y3h"]
+radius = 0.1
+height = 0.2
+
+[node name="Projectile" type="RayCast3D"]
+target_position = Vector3(0, 0, -1)
+collision_mask = 33
+collide_with_areas = true
+script = ExtResource("1_vcp4f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_q7y3h")

@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmyxor4ada4jk"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/sound_3d.gd" id="1_ej6yd"]
+[ext_resource type="AudioStream" uid="uid://cnqdb0g4ywrvk" path="res://addons/tome_fps/assets/sfx/broken_glass.wav" id="2_dfds4"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_kpq7d"]
+radius = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmcoa"]
+transparency = 4
+diffuse_mode = 3
+specular_mode = 1
+albedo_color = Color(1, 1, 0, 0.545098)
+
+[sub_resource type="SphereMesh" id="SphereMesh_7sd56"]
+radius = 1.0
+height = 2.0
+
+[node name="Sound3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 16384
+monitorable = false
+script = ExtResource("1_ej6yd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_kpq7d")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_dfds4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_dmcoa")
+mesh = SubResource("SphereMesh_7sd56")

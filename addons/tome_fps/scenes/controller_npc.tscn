@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3kjir4w4d6qo"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/controller_npc.gd" id="1_qqqht"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/npc_debug_draw.gd" id="2_qplaq"]
+
+[node name="ControllerNPC" type="Node3D"]
+script = ExtResource("1_qqqht")
+
+[node name="DebugDraw" type="Node2D" parent="."]
+script = ExtResource("2_qplaq")
+width = 2.0

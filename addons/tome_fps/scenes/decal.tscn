@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://du78rrf0f45u0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_f30dw"]
+radius = 0.1
+height = 0.2
+
+[node name="Decal" type="MeshInstance3D"]
+mesh = SubResource("SphereMesh_f30dw")

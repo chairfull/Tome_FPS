@@ -1,0 +1,72 @@
+[gd_scene load_steps=3 format=3 uid="uid://cosrnci45upeo"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/controller_player.gd" id="1_njtdf"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_kndj3"]
+radius = 0.1
+height = 0.2
+
+[node name="ControllerPlayer" type="Node3D"]
+script = ExtResource("1_njtdf")
+
+[node name="AudioListener3D" type="AudioListener3D" parent="."]
+current = true
+
+[node name="Cursor" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Mesh" type="MeshInstance3D" parent="Cursor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("SphereMesh_kndj3")
+skeleton = NodePath("../..")
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="LightLevel" type="Label" parent="UserInterface"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 231.0
+offset_bottom = 54.0
+
+[node name="LightGem" type="ColorRect" parent="UserInterface/LightLevel"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 29.0
+offset_top = 76.0
+offset_right = 69.0
+offset_bottom = 116.0
+
+[node name="interactive" type="PanelContainer" parent="UserInterface"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 69.0
+offset_bottom = 23.0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UserInterface/interactive"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/interactive/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="label" type="Label" parent="UserInterface/interactive/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "[E] Use Item
+[F] Select"
+vertical_alignment = 1

@@ -1,0 +1,2 @@
+class_name CharacterEquipmentNode
+extends Node

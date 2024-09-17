@@ -1,0 +1,119 @@
+[gd_scene load_steps=21 format=3 uid="uid://cutptbkxfcyvx"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/item_node.gd" id="1_3yafl"]
+[ext_resource type="Resource" uid="uid://dvoqxmd7gwwyt" path="res://state/items/rifle.tres" id="2_ysn5u"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ncusu"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wm1d1"]
+size = Vector3(0.1, 0.2, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tnq4b"]
+size = Vector3(0.2, 0.2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_obmpv"]
+size = Vector3(0.1, 0.2, 0.4)
+
+[sub_resource type="Animation" id="Animation_3cwt6"]
+resource_name = "reload"
+
+[sub_resource type="Animation" id="Animation_f3wcn"]
+resource_name = "cooldown"
+
+[sub_resource type="Animation" id="Animation_plhyr"]
+resource_name = "fire"
+
+[sub_resource type="Animation" id="Animation_mak2l"]
+resource_name = "idle"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hxvc4"]
+_data = {
+&"reload": SubResource("Animation_3cwt6"),
+&"cooldown": SubResource("Animation_f3wcn"),
+&"fire": SubResource("Animation_plhyr"),
+&"idle": SubResource("Animation_mak2l")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3x7ou"]
+animation = &"fire"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6qaxk"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ykwhr"]
+animation = &"reload"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_p3l8h"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gebfn"]
+advance_mode = 2
+advance_condition = &"fired"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8v5c"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_283ur"]
+advance_mode = 2
+advance_condition = &"reloaded"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sstwt"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_o3ne8"]
+states/fire/node = SubResource("AnimationNodeAnimation_3x7ou")
+states/fire/position = Vector2(485, 53)
+states/idle/node = SubResource("AnimationNodeAnimation_6qaxk")
+states/idle/position = Vector2(329, 100)
+states/reload/node = SubResource("AnimationNodeAnimation_ykwhr")
+states/reload/position = Vector2(485, 181)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_p3l8h"), "idle", "fire", SubResource("AnimationNodeStateMachineTransition_gebfn"), "reload", "idle", SubResource("AnimationNodeStateMachineTransition_u8v5c"), "idle", "reload", SubResource("AnimationNodeStateMachineTransition_283ur"), "fire", "idle", SubResource("AnimationNodeStateMachineTransition_sstwt")]
+graph_offset = Vector2(0, -5.79844)
+
+[node name="Gun" type="RigidBody3D" node_paths=PackedStringArray("mesh")]
+collision_layer = 257
+script = ExtResource("1_3yafl")
+item = ExtResource("2_ysn5u")
+selectable = false
+assignable_to_node = false
+assignable_to_point = false
+label = "Pickup"
+mesh = NodePath("MeshInstance3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ncusu")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, -0.1, 0.4)
+mesh = SubResource("BoxMesh_wm1d1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_tnq4b")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, -0.1, 0.4)
+shape = SubResource("BoxShape3D_obmpv")
+
+[node name="ProjectileOrigin" type="Marker3D" parent="." groups=["Dummy"]]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.51)
+
+[node name="ShellOrigin" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.1, 0, 0.29)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hxvc4")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_o3ne8")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/fired = false
+parameters/conditions/reloaded = false
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+radius = 0.8
+height = 0.5
