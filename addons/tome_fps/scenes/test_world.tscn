@@ -2,9 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://cc1m2a1obsyn4" path="res://addons/tome_fps/character_node.tscn" id="1_5insn"]
 [ext_resource type="Resource" uid="uid://cuwhr62gtv4p8" path="res://state/characters/player.tres" id="2_msftv"]
-[ext_resource type="Texture2D" uid="uid://pe7a4weirj2g" path="res://textures/dark.png" id="2_q0od7"]
-[ext_resource type="Texture2D" uid="uid://cxjxvqmf4boxq" path="res://textures/green.png" id="3_n0jmn"]
-[ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://textures/orange.png" id="4_k23fd"]
+[ext_resource type="Texture2D" uid="uid://pe7a4weirj2g" path="res://addons/tome_fps/assets/textures/dark.png" id="2_q0od7"]
+[ext_resource type="Texture2D" uid="uid://cxjxvqmf4boxq" path="res://addons/tome_fps/assets/textures/green.png" id="3_n0jmn"]
+[ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://addons/tome_fps/assets/textures/orange.png" id="4_k23fd"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/item_node.gd" id="5_6uj4x"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/moving_platform.gd" id="6_3m4kd"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/restrainer_node.gd" id="7_80m6c"]
@@ -50,6 +50,7 @@ noise = SubResource("FastNoiseLite_jd3pw")
 albedo_texture = SubResource("NoiseTexture2D_7akuf")
 uv1_scale = Vector3(0.1, 0.1, 0.1)
 uv1_triplanar = true
+uv1_world_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gomnb"]
 albedo_texture = ExtResource("2_q0od7")
@@ -131,9 +132,9 @@ navigation_mesh = SubResource("NavigationMesh_p5nlx")
 [node name="terrain" type="Node3D" parent="NavigationRegion3D"]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D/terrain"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, -0.5, 10)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.14624, -0.5, 23.8293)
 use_collision = true
-size = Vector3(30, 1, 30)
+size = Vector3(72.3462, 1, 57.6586)
 material = SubResource("StandardMaterial3D_67ysu")
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D/terrain"]

@@ -1,10 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://cosrnci45upeo"]
+[gd_scene load_steps=8 format=3 uid="uid://cosrnci45upeo"]
 
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/controller_player.gd" id="1_njtdf"]
+[ext_resource type="AudioStream" uid="uid://bol1w0513h3l5" path="res://addons/tome_fps/assets/sfx/hitmarker.mp3" id="2_1wnfi"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_kndj3"]
 radius = 0.1
 height = 0.2
+
+[sub_resource type="Gradient" id="Gradient_dlysc"]
+offsets = PackedFloat32Array(0.696809, 0.867021)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mcr22"]
+gradient = SubResource("Gradient_dlysc")
+width = 40
+height = 40
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
 
 [sub_resource type="Gradient" id="Gradient_n0s6l"]
 interpolation_mode = 2
@@ -78,8 +91,31 @@ text = "[E] Use Item
 [F] Select"
 vertical_alignment = 1
 
+[node name="CommitedDamageIndicator" type="TextureRect" parent="UserInterface"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.785398
+pivot_offset = Vector2(20, 20)
+texture = SubResource("GradientTexture2D_mcr22")
+
 [node name="DamageIndicator" type="Sprite2D" parent="."]
 unique_name_in_owner = true
+visible = false
 modulate = Color(1, 0, 0, 1)
 scale = Vector2(0.40625, 1.1875)
 texture = SubResource("GradientTexture2D_ae56v")
+
+[node name="HitSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_1wnfi")

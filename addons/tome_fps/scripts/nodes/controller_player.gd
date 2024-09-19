@@ -23,6 +23,12 @@ func _ready() -> void:
 	character_node.camera.make_current()
 	
 	character_node.damaged.connect(_damaged)
+	character_node.comitted_damage.connect(func(e: DamageEvent):
+			%CommitedDamageIndicator.visible = true
+			$HitSound.play()
+			await get_tree().create_timer(0.5).timeout
+			%CommitedDamageIndicator.visible = false
+			)
 	
 	character_node.interactive_selected.connect(func(inter):
 			cursor.visible = true)

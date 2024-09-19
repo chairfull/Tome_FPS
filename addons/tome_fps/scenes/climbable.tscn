@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/climbable.gd" id="1_x21rk"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/restrainer_node.gd" id="2_qn3kr"]
-[ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://textures/orange.png" id="2_tgy8m"]
+[ext_resource type="Texture2D" uid="uid://dsv4jm4vydflb" path="res://addons/tome_fps/assets/textures/orange.png" id="2_tgy8m"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_huhqk"]
 diffuse_mode = 3

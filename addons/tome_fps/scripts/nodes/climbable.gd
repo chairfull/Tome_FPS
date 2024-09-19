@@ -9,11 +9,12 @@ extends InteractiveNode
 @onready var top: MeshInstance3D = $Top
 
 func _ready() -> void:
-	restrainer_node.occupied.connect(_occupied)
-	restrainer_node.controller_input.connect(_controller_input)
-	restrainer_node.controller_process.connect(_controller_process)
-	set_height.call_deferred(height)
-	set_width.call_deferred(width)
+	if Engine.is_editor_hint():
+		restrainer_node.occupied.connect(_occupied)
+		restrainer_node.controller_input.connect(_controller_input)
+		restrainer_node.controller_process.connect(_controller_process)
+		set_height.call_deferred(height)
+		set_width.call_deferred(width)
 
 func _occupied():
 	# Rotate into position.

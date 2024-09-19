@@ -27,5 +27,5 @@ func _body_entered(body: Node3D):
 
 func _body_exited(body: Node3D):
 	if len(stopper.get_overlapping_bodies()) == 0:
-		if animation_player.current_animation_position < animation_player.current_animation_length:
+		if animation_player.current_animation and animation_player.current_animation_position < animation_player.current_animation_length:
 			animation_player.play()

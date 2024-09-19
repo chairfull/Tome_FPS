@@ -1,6 +1,9 @@
 class_name MainScene
 extends Node
 
+signal chatter_started(chatter: Chatter3D)
+signal chatter_ended(chatter: Chatter3D)
+
 const RES_1920_1080 := Vector2i(1920, 1080)
 const RES_1280_720 := Vector2i(1280, 720)
 
@@ -14,6 +17,7 @@ var fade_tween: Tween
 func _ready() -> void:
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 	DisplayServer.window_set_size(RES_1280_720)
+	show_ui("chatter")
 
 func get_random_patrol(inside: StringName = "") -> Variant:
 	if inside:

@@ -1,0 +1,22 @@
+Root!Parallel:
+	Observe!Composite:
+		Idle!Atom:
+			trans->Observe: { event: leave }
+			trans->Idle: { event: escaped }
+		Target!Composite:
+			trans->Search: { event: lost_target }
+			Approach!Atom:
+				trans->Attack: { event: within_range }
+			Attack!Atom:
+				trans->Approach: { event: out_of_range }
+		Searching!Atom:
+			trans->Target: { event: got_target }
+			trans->Observe: { event: failed_search }
+	
+	Movement!Composite:
+		Idle!Atom:
+			trans->Path: { event: OO }
+		Path!Atom:
+			trans->Idle: { event: OO }
+		Restrained!Atom:
+			trans->Idle: { event: OO }

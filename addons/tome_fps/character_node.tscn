@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cc1m2a1obsyn4"]
+[gd_scene load_steps=39 format=3 uid="uid://cc1m2a1obsyn4"]
 
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/character_node.gd" id="1_1jr5i"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/character_equipment_node.gd" id="2_2u3w1"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/sound_listener_3d.gd" id="5_to20h"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/damagable_3d.gd" id="6_3ihoj"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/light_detector_vp.gd" id="6_m1ik6"]
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/chatter_3d.gd" id="7_s7u1l"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kp17n"]
 albedo_color = Color(0.909804, 0.596078, 0, 1)
@@ -87,70 +88,6 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.5, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_ht2jk"]
-resource_name = "prone"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Head:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 1.125, 0), Vector3(0, 0.5, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Collision:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0.675, 0), Vector3(0, 0.3, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Collision:scale")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 0.75, 1), Vector3(1, 0.3, 1)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Mesh:position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0.675, 0), Vector3(0, 0.3, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Mesh:scale")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(1, 0.75, 1), Vector3(1, 0.3, 1)]
-}
-
 [sub_resource type="Animation" id="Animation_5ec5e"]
 resource_name = "crouch"
 length = 0.2
@@ -215,11 +152,75 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.5, 0), Vector3(0, 1.12508, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_ht2jk"]
+resource_name = "prone"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Head:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 1.125, 0), Vector3(0, 0.5, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Collision:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.675, 0), Vector3(0, 0.3, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Collision:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 0.75, 1), Vector3(1, 0.3, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Mesh:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.675, 0), Vector3(0, 0.3, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Mesh:scale")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(1, 0.75, 1), Vector3(1, 0.3, 1)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5e5t5"]
 _data = {
 &"RESET": SubResource("Animation_j8cx7"),
-&"crouch": SubResource("Animation_5ec5e"),
-&"prone": SubResource("Animation_ht2jk")
+&"prone": SubResource("Animation_ht2jk"),
+&"crouch": SubResource("Animation_5ec5e")
 }
 
 [sub_resource type="PrismMesh" id="PrismMesh_pxysc"]
@@ -340,22 +341,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_s07ye"]
-resource_name = "jump"
-length = 3.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Bob/Camera:rotation")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 3),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.0349066, 0, 0), Vector3(0, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_l1rph"]
 resource_name = "land_left"
 length = 1.5
@@ -412,12 +397,28 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-0.0349066, 0, -0.0174533), Vector3(0, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_s07ye"]
+resource_name = "jump"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Bob/Camera:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0349066, 0, 0), Vector3(0, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qeg5r"]
 _data = {
 &"RESET": SubResource("Animation_fvvjq"),
 &"jump": SubResource("Animation_s07ye"),
-&"land_right": SubResource("Animation_vsknp"),
-&"land_left": SubResource("Animation_l1rph")
+&"land_left": SubResource("Animation_l1rph"),
+&"land_right": SubResource("Animation_vsknp")
 }
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3sojx"]
@@ -562,6 +563,12 @@ script = ExtResource("6_3ihoj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/HeadHealth"]
 shape = SubResource("SphereShape3D_2nqq4")
+
+[node name="Chatter" type="Node3D" parent="Head"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5, 0)
+script = ExtResource("7_s7u1l")
+speaker = "NPC"
 
 [node name="CrawlCeilingDetection" type="ShapeCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

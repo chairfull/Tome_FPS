@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 signal damaged(event: DamageEvent)
 signal healed(event: HealingEvent)
+signal comitted_damage(event: DamageEvent)
 signal restrainer_entered(restrainer: RestrainerNode)
 signal restrainer_exited(restrainer: RestrainerNode)
 signal interactive_focused(interactive: InteractiveNode)
@@ -85,6 +86,7 @@ var _selected: InteractiveNode: set=set_selected
 @onready var sound_listener: SoundListener3D = $Head/SoundListener
 @onready var head_health: Damagable3D = %HeadHealth
 @onready var body_health: Damagable3D = %BodyHealth
+@onready var chatter: Chatter3D = %Chatter
 
 func _ready() -> void:
 	camera_ray.add_exception(self)
@@ -505,6 +507,8 @@ func spawn_projectile(barrel: Node3D):
 	var normal := -barrel.global_basis.z.normalized()
 	var origin := barrel.global_position
 	var proj := Projectile3D.create(origin, normal * 30.0)
+	proj.committed_damage.connect(comitted_damage.emit)
+	
 	var hit_info = await proj.finished
 	if hit_info:
 		var decal: Node = load("res://addons/tome_fps/scenes/decal.tscn").instantiate()

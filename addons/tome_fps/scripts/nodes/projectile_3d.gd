@@ -1,7 +1,11 @@
 class_name Projectile3D
 extends RayCast3D
+## Base projectile class that flies forward until hitting something or timing out.
 
+## Either hit or timed out.
 signal finished(info: Dictionary)
+## Damaged something.
+signal committed_damage(event: DamageEvent)
 
 const MAX_LIFE_SECONDS := 20.0
 
@@ -36,6 +40,8 @@ func _physics_process(delta: float) -> void:
 					position=hit_point,
 					normal=hit_norm,
 				}, collider._damaged)
+				
+				committed_damage.emit(Event.DAMAGE)
 			
 			finish({
 				collider=collider,

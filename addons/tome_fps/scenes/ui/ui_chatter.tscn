@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://bjtbimhnft8kn"]
+
+[ext_resource type="Script" path="res://addons/tome_fps/scripts/ui/ui_chatter.gd" id="1_txr22"]
+
+[node name="UiChatter" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_bottom = 32
+script = ExtResource("1_txr22")
+
+[node name="MessageBox" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
+
+[node name="Message" type="Label" parent="MessageBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.627451)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/shadow_outline_size = 1
+theme_override_font_sizes/font_size = 24
+text = "Chatter: Text Spoken By Chatter"

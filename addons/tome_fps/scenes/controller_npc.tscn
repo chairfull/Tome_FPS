@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3kjir4w4d6qo"]
+[gd_scene load_steps=8 format=3 uid="uid://b3kjir4w4d6qo"]
 
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/controller_npc.gd" id="1_qqqht"]
 [ext_resource type="Script" path="res://addons/tome_fps/scripts/nodes/npc_debug_draw.gd" id="2_qplaq"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/state_chart.gd" id="3_bs1bm"]
+[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="3_r70nr"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="4_a5313"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="5_x6jko"]
+[ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="7_587ii"]
 
 [node name="ControllerNPC" type="Node3D"]
 script = ExtResource("1_qqqht")
@@ -9,3 +14,90 @@ script = ExtResource("1_qqqht")
 [node name="DebugDraw" type="Node2D" parent="."]
 script = ExtResource("2_qplaq")
 width = 2.0
+
+[node name="StateChartDebugger" parent="." instance=ExtResource("3_r70nr")]
+offset_left = 699.0
+initial_node_to_watch = NodePath("../StateChart")
+
+[node name="StateChart" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("3_bs1bm")
+
+[node name="Observe" type="Node" parent="StateChart"]
+script = ExtResource("4_a5313")
+initial_state = NodePath("Flee")
+
+[node name="Idle" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToObserve" type="Node" parent="StateChart/Observe/Idle"]
+script = ExtResource("7_587ii")
+to = NodePath("../../Observe")
+event = &"character_spotted"
+delay_in_seconds = "0.0"
+
+[node name="Approach" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToAttack" type="Node" parent="StateChart/Observe/Approach"]
+script = ExtResource("7_587ii")
+to = NodePath("../../Attack")
+event = &"attack"
+delay_in_seconds = "0.0"
+
+[node name="Attack" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToApproach" type="Node" parent="StateChart/Observe/Attack"]
+script = ExtResource("7_587ii")
+to = NodePath("../../Approach")
+event = &"target_out_of_range"
+delay_in_seconds = "0.0"
+
+[node name="Flee" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="Observe" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToIdle" type="Node" parent="StateChart/Observe/Observe"]
+script = ExtResource("7_587ii")
+to = NodePath("../../Idle")
+event = &"character_lost"
+delay_in_seconds = "0.0"
+
+[node name="ToTarget" type="Node" parent="StateChart/Observe/Observe"]
+script = ExtResource("7_587ii")
+event = &"target_spotted"
+delay_in_seconds = "0.0"
+
+[node name="Path" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToIdle" type="Node" parent="StateChart/Observe/Path"]
+script = ExtResource("7_587ii")
+event = &"path_ended"
+delay_in_seconds = "0.0"
+
+[node name="Restrained" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="Searching" type="Node" parent="StateChart/Observe"]
+script = ExtResource("5_x6jko")
+
+[node name="ToTarget" type="Node" parent="StateChart/Observe/Searching"]
+script = ExtResource("7_587ii")
+event = &"target_spotted"
+delay_in_seconds = "0.0"
+
+[node name="ToObserve" type="Node" parent="StateChart/Observe/Searching"]
+script = ExtResource("7_587ii")
+to = NodePath("../..")
+event = &"giving_up_search"
+delay_in_seconds = "0.0"
+
+[connection signal="state_physics_processing" from="StateChart/Observe/Approach" to="." method="_on_have_target_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Observe/Attack" to="." method="_on_attack_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Observe/Path" to="." method="_on_path_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Observe/Searching" to="." method="_on_searching_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Observe/Searching" to="." method="_on_searching_state_physics_processing"]
